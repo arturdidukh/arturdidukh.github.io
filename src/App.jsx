@@ -1,5 +1,4 @@
 import { useState } from 'react'
-// Імпортуємо інструменти маршрутизації
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import CarCard from './CarCard';
@@ -8,10 +7,8 @@ import About from './About';
 import Booking from './Booking';
 
 function App() {
-  // Стан для лічильника обраних авто (Завдання 3)
   const [count, setCount] = useState(0);
 
-  // Дані про авто (Варіант 6)
   const cars = [
     { id: 1, name: "Skoda Octavia", img: "https://www.actualidadmotor.com/wp-content/uploads/2022/02/Skoda-Octavia-2024-Portada.jpg", trans: "Автомат", price: "1200 грн", count: 3 },
     { id: 2, name: "Renault Megane", img: "https://img.chceauto.pl/renault/megane/renault-megane-hatchback-5-drzwiowy-4389-47999_v2.jpg", trans: "Механіка", price: "900 грн", count: 5 },
@@ -22,14 +19,12 @@ function App() {
   ];
 
   return (
-    // Огортаємо весь додаток у Router (Завдання 4)
     <Router>
       <div className="main-wrapper">
         <header>
           <div className="logo">Auto<span>Svit</span> (Обрано: {count})</div>
           <nav>
             <ul className="nav-links">
-              {/* Використовуємо Link замість <a> для SPA-навігації */}
               <li><Link to="/">Автомобілі</Link></li>
               <li><Link to="/booking">Бронювання</Link></li>
               <li><Link to="/about">Про нас</Link></li>
@@ -38,7 +33,6 @@ function App() {
         </header>
 
         <main>
-          {/* Визначаємо, яку сторінку показувати залежно від URL */}
           <Routes>
             <Route path="/" element={<Home cars={cars} onAdd={() => setCount(count + 1)} />} />
             <Route path="/booking" element={<Booking count={count} />} />

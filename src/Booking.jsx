@@ -1,4 +1,3 @@
-// src/Booking.jsx
 function Booking({ count }) {
   return (
     <section className="container">

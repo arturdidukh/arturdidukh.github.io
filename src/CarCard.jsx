@@ -1,4 +1,3 @@
-// src/CarCard.jsx
 function CarCard({ car, onAdd }) {
   return (
     <article className="car-card">
@@ -10,7 +9,6 @@ function CarCard({ car, onAdd }) {
           <li><strong>Ціна/доба:</strong> {car.price}</li>
           <li><strong>В наявності:</strong> {car.count} од.</li>
         </ul>
-        {/* Додано onClick={onAdd} */}
         <button className="btn" onClick={onAdd}>
           ЗАМОВИТИ
         </button>

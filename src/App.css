@@ -1,11 +1,9 @@
-/* --- ОСНОВНІ НАЛАШТУВАННЯ ДЛЯ ПРИТИСКАННЯ ФУТЕРА --- */
 #root {
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Оновлюємо body, щоб він дозволяв контенту розтягуватися */
 body {
   margin: 0;
   padding: 0;
@@ -16,14 +14,12 @@ body {
   line-height: 1.6;
 }
 
-/* Головний обгортковий див з App.jsx */
 .main-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Сайт завжди не менший за висоту екрана */
+  min-height: 100vh; 
 }
 
-/* Основний контент (main) тепер забирає весь вільний простір */
 main {
   flex: 1; 
   display: flex;
@@ -43,7 +39,6 @@ main {
     padding: 60px 20px;
 }
 
-/* --- ШАПКА --- */
 header {
     background-color: #1a1a1a;
     color: #ffffff;
@@ -87,7 +82,6 @@ header {
     color: #ffcc00;
 }
 
-/* --- ЗАГОЛОВКИ --- */
 .section-title {
     text-align: center;
     font-size: 36px;
@@ -101,9 +95,6 @@ header {
     margin-bottom: 50px;
 }
 
-/* App.css */
-
-/* --- СІТКА ТА КАРТКИ --- */
 .cars-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -115,17 +106,16 @@ header {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; /* Додано border-color до transition */
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; 
     display: flex;
     flex-direction: column;
-    border: 2px solid transparent; /* Обов'язково додано для JS ефектів */
+    border: 2px solid transparent; 
 }
 
-/* Ефект підсвічування при наведенні (Варіант 6) */
 .car-card:hover {
     transform: translateY(-10px);
-    border-color: #ffcc00; /* Яскрава жовта обводка */
-    box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2); /* Жовте світіння */
+    border-color: #ffcc00; 
+    box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2); 
 }
 
 .car-card img {
@@ -142,7 +132,6 @@ header {
     flex-direction: column;
 }
 
-/* --- КНОПКИ ТА ФІЛЬТРИ --- */
 .btn {
     margin-top: auto;
     background: #1a1a1a;
@@ -170,7 +159,6 @@ header {
     margin-bottom: 40px;
 }
 
-/* --- ПРО НАС ТА КОНТАКТИ --- */
 .about-flex {
     display: flex;
     gap: 60px;
@@ -185,17 +173,15 @@ header {
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* --- ФУТЕР (ТЕПЕР ВІН ЗАВЖДИ ВНИЗУ) --- */
 footer {
     background: #111;
     color: #999;
     padding: 40px 0;
     text-align: center;
     width: 100%;
-    margin-top: auto; /* Додатковий штовхач до низу */
+    margin-top: auto; 
 }
 
-/* --- АДАПТИВНІСТЬ --- */
 @media (max-width: 992px) {
     .cars-grid {
         grid-template-columns: repeat(2, 1fr);

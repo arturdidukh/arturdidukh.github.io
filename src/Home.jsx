@@ -2,12 +2,10 @@ import { useState } from 'react';
 import CarCard from './CarCard';
 
 function Home({ cars, onAdd }) {
-  // Створюємо стани для трьох типів фільтрів
   const [transFilter, setTransFilter] = useState('All');
   const [priceFilter, setPriceFilter] = useState('All');
   const [stockFilter, setStockFilter] = useState(false);
 
-  // Логіка фільтрації (Варіант 6, пункт 2)
   const filteredCars = cars.filter(car => {
     const matchTrans = transFilter === 'All' || car.trans === transFilter;
     const matchPrice = priceFilter === 'All' 
@@ -26,7 +24,6 @@ function Home({ cars, onAdd }) {
         <h3 style={{ textAlign: 'center', marginBottom: '15px' }}>Фільтрація авто</h3>
         
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
-          {/* Фільтр за трансмісією */}
           <div>
             <label>Трансмісія: </label>
             <select className="btn" onChange={(e) => setTransFilter(e.target.value)}>
@@ -37,7 +34,6 @@ function Home({ cars, onAdd }) {
             </select>
           </div>
 
-          {/* Фільтр за ціною */}
           <div>
             <label>Ціна: </label>
             <select className="btn" onChange={(e) => setPriceFilter(e.target.value)}>
@@ -47,7 +43,6 @@ function Home({ cars, onAdd }) {
             </select>
           </div>
 
-          {/* Фільтр за наявністю */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <label> В наявності (2+): </label>
             <input 

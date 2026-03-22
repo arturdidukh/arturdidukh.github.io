@@ -1,4 +1,3 @@
-// src/About.jsx
 function About() {
   return (
     <section className="container">
