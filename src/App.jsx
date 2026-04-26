@@ -1,13 +1,47 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import './App.css'
-import CarCard from './CarCard';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { auth, db } from './firebase'; 
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
+
+import './App.css';
+import Auth from './Auth';
 import Home from './Home';
 import About from './About';
 import Booking from './Booking';
 
 function App() {
   const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleOrder = async (carName) => {
+    if (!user) {
+      alert("Будь ласка, спочатку увійдіть у систему!");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "orders"), {
+        userEmail: user.email,
+        carName: carName,
+        createdAt: serverTimestamp()
+      });
+
+      setCount(prev => prev + 1);
+      
+      alert(`Успішно! ${carName} додано до ваших замовлень.`);
+    } catch (error) {
+      console.error("Помилка бази даних:", error);
+      alert("Сталася помилка при збереженні замовлення.");
+    }
+  };
 
   const cars = [
     { id: 1, name: "Skoda Octavia", img: "https://www.actualidadmotor.com/wp-content/uploads/2022/02/Skoda-Octavia-2024-Portada.jpg", trans: "Автомат", price: "1200 грн", count: 3 },
@@ -22,19 +56,35 @@ function App() {
     <Router>
       <div className="main-wrapper">
         <header>
-          <div className="logo">Auto<span>Svit</span> (Обрано: {count})</div>
+          <div className="logo">
+            Auto<span>Svit</span> {user && `(Обрано: ${count})`}
+          </div>
           <nav>
             <ul className="nav-links">
               <li><Link to="/">Автомобілі</Link></li>
               <li><Link to="/booking">Бронювання</Link></li>
               <li><Link to="/about">Про нас</Link></li>
+
+              {!user ? (
+                <li><Link to="/auth" style={{color: 'yellow', fontWeight: 'bold'}}>УВІЙТИ</Link></li>
+              ) : (
+                <>
+                  <li style={{color: '#ccc', fontSize: '12px'}}>{user.email}</li>
+                  <li>
+                    <button onClick={() => auth.signOut()} style={{background: 'red', color: 'white', border: 'none', cursor: 'pointer', padding: '5px 10px', borderRadius: '4px', marginLeft: '10px'}}>
+                      ВИЙТИ
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </header>
 
         <main>
           <Routes>
-            <Route path="/" element={<Home cars={cars} onAdd={() => setCount(count + 1)} />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/" element={<Home cars={cars} onAdd={handleOrder} user={user} />} />
             <Route path="/booking" element={<Booking count={count} />} />
             <Route path="/about" element={<About />} />
           </Routes>
@@ -42,12 +92,12 @@ function App() {
 
         <footer>
           <div className="container">
-            <p>&copy; 2026 AutoSvit Львів.  вул. Кульпарківська 121  |  380 98 359 77 87</p>
+            <p>&copy; 2026 AutoSvit Львів. вул. Кульпарківська 121 | +380 98 359 77 87</p>
           </div>
         </footer>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
