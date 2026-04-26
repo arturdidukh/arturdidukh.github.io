@@ -1,4 +1,4 @@
-function CarCard({ car, onAdd }) {
+function CarCard({ car, onAdd, user }) {
   return (
     <article className="car-card">
       <img src={car.img} alt={car.name} />
@@ -9,9 +9,25 @@ function CarCard({ car, onAdd }) {
           <li><strong>Ціна/доба:</strong> {car.price}</li>
           <li><strong>В наявності:</strong> {car.count} од.</li>
         </ul>
-        <button className="btn" onClick={onAdd}>
+
+        {user ? (
+          <button className="btn" onClick={() => onAdd(car.name)}>
           ЗАМОВИТИ
-        </button>
+          </button>
+        ) : (
+          <p style={{ 
+            color: '#e74c3c', 
+            fontWeight: 'bold', 
+            fontSize: '0.9rem',
+            marginTop: '10px',
+            border: '1px solid #e74c3c',
+            padding: '5px',
+            borderRadius: '4px',
+            textAlign: 'center'
+          }}>
+            Увійдіть, щоб забронювати
+          </p>
+        )}
       </div>
     </article>
   );

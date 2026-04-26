@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CarCard from './CarCard';
 
-function Home({ cars, onAdd }) {
+function Home({ cars, onAdd, user }) {
   const [transFilter, setTransFilter] = useState('All');
   const [priceFilter, setPriceFilter] = useState('All');
   const [stockFilter, setStockFilter] = useState(false);
@@ -19,6 +19,12 @@ function Home({ cars, onAdd }) {
   return (
     <section className="container">
       <h1 className="section-title">Наш автопарк</h1>
+      
+      {user && (
+        <p style={{ textAlign: 'center', color: '#2ecc71', fontWeight: 'bold' }}>
+          Ви увійшли як: {user.email}. Бронювання доступне!
+        </p>
+      )}
       
       <div className="filter-section" style={{ background: '#f4f4f4', padding: '20px', borderRadius: '8px', marginBottom: '30px' }}>
         <h3 style={{ textAlign: 'center', marginBottom: '15px' }}>Фільтрація авто</h3>
@@ -58,7 +64,7 @@ function Home({ cars, onAdd }) {
       <div className="cars-grid">
         {filteredCars.length > 0 ? (
           filteredCars.map(car => (
-            <CarCard key={car.id} car={car} onAdd={onAdd} />
+            <CarCard key={car.id} car={car} onAdd={onAdd} user={user} />
           ))
         ) : (
           <p style={{ gridColumn: '1/-1', textAlign: 'center' }}>Авто за такими критеріями не знайдено.</p>
