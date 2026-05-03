@@ -1,3 +1,5 @@
+import React from 'react';
+
 function CarCard({ car, onAdd, user }) {
   return (
     <article className="car-card">
@@ -7,12 +9,12 @@ function CarCard({ car, onAdd, user }) {
         <ul>
           <li><strong>Трансмісія:</strong> {car.trans}</li>
           <li><strong>Ціна/доба:</strong> {car.price}</li>
-          <li><strong>В наявності:</strong> {car.count} од.</li>
+          <li><strong>В наявності:</strong> {car.availableCount} од.</li>
         </ul>
 
         {user ? (
-          <button className="btn" onClick={() => onAdd(car.name)}>
-          ЗАМОВИТИ
+          <button className="btn" onClick={() => onAdd(car)}>
+            ЗАМОВИТИ
           </button>
         ) : (
           <p style={{ 
